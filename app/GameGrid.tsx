@@ -1,21 +1,25 @@
 import GameCard from "./components/GameCard";
 import { getAllData } from "./services/getAllData";
 
-interface Game{
-    id: number; 
-    name: string; 
-    background_image: string 
+interface Game {
+    id: number;
+    name: string;
+    background_image: string; 
+    metacritic: number; 
 }
 
 
 
-export default async function GameGrid (){
-    const games= await getAllData('games');     
+export default async function GameGrid() {
+    const games = await getAllData('games');
     return (
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {
-                games.results.map(game => <GameCard key={game.id} game={game}/>)
-            }
+        <div>
+            <h2 className="mb-8 font-semibold text-2xl">Games</h2>
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {
+                    games.results.map(game => <GameCard key={game.id} game={game} />)
+                }
+            </div>
         </div>
     )
 }

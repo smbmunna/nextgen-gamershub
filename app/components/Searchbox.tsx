@@ -14,9 +14,7 @@ export default function SearchBox() {
                     <path d="m21 21-4.3-4.3"></path>
                 </g>
             </svg>
-            <input type="search" className="grow" placeholder="Search" />
-            <kbd className="kbd kbd-sm">⌘</kbd>
-            <kbd className="kbd kbd-sm">K</kbd>
+            <input type="search" className="grow" placeholder="Search Games" />
         </label>
     )
 }

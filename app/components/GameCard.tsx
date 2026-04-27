@@ -2,7 +2,7 @@ import Image from "next/image";
 
 
 export default function GameCard({game}) {
-    const {id, name, background_image}= game; 
+    const {id, name, background_image, metacritic}= game; 
     return (
         <div className="card bg-base-100 shadow-sm flex flex-col h-full">
                 <Image
@@ -18,7 +18,7 @@ export default function GameCard({game}) {
                 </h2>                
                 <div className="card-actions justify-between">                    
                     <div>Platform</div>
-                    <div className="badge badge-secondary">NEW</div>
+                    <div className={`badge badge-soft badge-${metacritic>=90 ? 'primary': 'secondary'}`}>{metacritic}</div>
                 </div>
             </div>
         </div>
