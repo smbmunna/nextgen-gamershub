@@ -1,17 +1,23 @@
-'use client'
 
+
+import GameGrid from "./GameGrid";
 import useGenres from "./hooks/useGenres"
 
 export default function Sidebar() {
-    const { genres, isLoading, error } = useGenres();
+    const { genres } = useGenres();
     return (
         <div className="drawer lg:drawer-open my-8">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-center">
+            <div className="drawer-content flex justify-center">
                 {/* Page content here */}
-                <label htmlFor="my-drawer-3" className="btn drawer-button lg:hidden">
-                    Open drawer
+                <label htmlFor="my-drawer-3" className="btn drawer-button lg:hidden ">
+                    
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block h-5 w-5 stroke-current"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg>
+                    
                 </label>
+                {/* Main content starts     */}
+                <GameGrid />
+                {/* Main content ends     */}
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
