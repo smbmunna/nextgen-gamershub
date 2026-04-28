@@ -6,7 +6,6 @@ import { BsGlobe, BsNintendoSwitch } from "react-icons/bs";
 
 
 
-
 export default function PlatformIconList({ platforms }) {
     const iconMap: Record<string, IconType> = {
         pc: FaWindows,
