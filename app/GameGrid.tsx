@@ -11,7 +11,7 @@ interface Game {
 
 
 export default async function GameGrid() {
-    const games = await getAllData('games');
+    const games = await getAllData('games');    
     return (
         <div>
             <h2 className="mb-8 font-semibold text-2xl">Games</h2>

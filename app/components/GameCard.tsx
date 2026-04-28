@@ -1,8 +1,9 @@
 import Image from "next/image";
+import PlatformIconList from "./PlatformIconList";
 
 
 export default function GameCard({game}) {
-    const {id, name, background_image, metacritic}= game; 
+    const {id, name, background_image, metacritic, parent_platforms}= game; 
     return (
         <div className="card bg-base-100 shadow-sm flex flex-col h-full">
                 <Image
@@ -17,7 +18,7 @@ export default function GameCard({game}) {
                     {name}                    
                 </h2>                
                 <div className="card-actions justify-between">                    
-                    <div>Platform</div>
+                    <div><PlatformIconList platforms={parent_platforms} /></div>
                     <div className={`badge badge-soft badge-${metacritic>=90 ? 'primary': 'secondary'}`}>{metacritic}</div>
                 </div>
             </div>
