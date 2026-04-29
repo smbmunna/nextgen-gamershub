@@ -1,3 +1,6 @@
+'use client'
+
+import { useRouter } from "next/navigation";
 
 interface Props {
     genre: {
@@ -7,7 +10,11 @@ interface Props {
 }
 
 export default function GenreList({ genre }: Props) {
+    const router = useRouter();
+    const handleClick = (id: number) => {
+        router.push(`/?genres=${id}`);
+    }
     return (
-        <li key={genre.id}><a>{genre.name}</a></li>
+        <li onClick={() => handleClick(genre.id)} key={genre.id}><a>{genre.name}</a></li>
     )
 }

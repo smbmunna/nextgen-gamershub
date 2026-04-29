@@ -10,8 +10,10 @@ interface Game {
 
 
 
-export default async function GameGrid() {
-    const games = await getAllData('games');    
+export default async function GameGrid({genreId}) {
+    const params= genreId? `&genres=${genreId}` : ''; 
+    const games = await getAllData('games', params);    
+    
     return (
         <div>
             <h2 className="mb-8 font-semibold text-2xl">Games</h2>
