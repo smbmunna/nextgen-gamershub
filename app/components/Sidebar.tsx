@@ -1,11 +1,12 @@
 import { Suspense } from "react";
-import GenreList from "./components/GenreList";
-import GameGrid from "./components/GameGrid";
-import useGenres from "./hooks/useGenres"
-import GameGridSkeleton from "./components/GameGridSkeleton";
+import GenreList from "./GenreList";
+import GameGrid from "./GameGrid";
+import useGenres from "../hooks/useGenres"
+import GameGridSkeleton from "./GameGridSkeleton";
 
-export default function Sidebar({ genreId }) {
-    const { genres } = useGenres();
+export default async function Sidebar({ genreId, parentPlatform }) {
+    const { genres } =  useGenres();
+
     return (
         <div className="drawer lg:drawer-open my-8">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -15,10 +16,9 @@ export default function Sidebar({ genreId }) {
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block h-5 w-5 stroke-current"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg>
                 </label>
                 {/* Main content starts     */}
-                <Suspense fallback={<GameGridSkeleton/>}>
-                    <GameGrid genreId={genreId} />
+                <Suspense fallback={<GameGridSkeleton />}>
+                    <GameGrid genreId={genreId} platformId={parentPlatform}/>
                 </Suspense>
-
                 {/* Main content ends     */}
             </div>
             <div className="drawer-side">

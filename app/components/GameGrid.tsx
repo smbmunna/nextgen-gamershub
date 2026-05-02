@@ -11,9 +11,12 @@ interface Game {
 
 
 
-export default async function GameGrid({genreId}) {
-    const params= genreId? `&genres=${genreId}` : ''; 
-    const games = await getAllData('games', params);    
+export default async function GameGrid({genreId, platformId}) {
+    const params= new URLSearchParams();
+    if(genreId) params.append('genres', genreId);  
+    if(platformId) params.append('parent_platforms', platformId); 
+    //const params= genreId? `&genres=${genreId}` : ''; 
+    const games = await getAllData('games', params.toString());  
     
     return (
         <div className="ml-4">

@@ -1,15 +1,15 @@
 import Navbar from "./components/Navbar";
-import Sidebar from "./Sidebar";
+import Sidebar from "./components/Sidebar";
 
 
-export default async function Home({ searchParams }: { searchParams: Promise<{ genres?: string }> }) {
+export default async function Home({ searchParams }: { searchParams: Promise<{ genres?: string,parent_platform?: string  }> }) {
 
-  const { genres } = await searchParams;  
+  const { genres, parent_platform } = await searchParams;
   return (
-    <div >
+    <div>
       <main >
         <Navbar />
-        <Sidebar genreId={genres} />
+        <Sidebar genreId={genres} parentPlatform={parent_platform}/>
       </main>
     </div>
   );
