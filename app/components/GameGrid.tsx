@@ -1,6 +1,6 @@
-import GameCard from "./components/GameCard";
-import Platform from "./components/Platform";
-import { getAllData } from "./services/getAllData";
+import GameCard from "./GameCard";
+import Platform from "./Platform";
+import { getAllData } from "../services/getAllData";
 
 interface Game {
     id: number;

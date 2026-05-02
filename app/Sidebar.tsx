@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import GenreList from "./components/GenreList";
-import GameGrid from "./GameGrid";
+import GameGrid from "./components/GameGrid";
 import useGenres from "./hooks/useGenres"
 import GameGridSkeleton from "./components/GameGridSkeleton";
 
