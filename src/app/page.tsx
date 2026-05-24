@@ -1,5 +1,6 @@
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
+
 
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ genres?: string,parent_platform?: string  }> }) {
