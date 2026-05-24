@@ -14,9 +14,7 @@ export default function GenreList({ genre }: Props) {
     const searchParams= useSearchParams(); 
     const handleClick = (id: number) => {
         const params= new URLSearchParams(searchParams.toString()); 
-        params.set('genreId', String(id))
-        console.log(params.toString()); 
-        //console.log(searchParams.toString()); 
+        params.set('genres', String(id)); 
         router.push(`/?${params.toString()}`);
     }
     return (

@@ -4,7 +4,6 @@ import PlatformIconList from "./PlatformIconList";
 
 export default function GameCard({ game }) {
     const { id, name, background_image, metacritic, parent_platforms } = game;
-    console.log(game.genres);
     return (
         <div className="card bg-base-100 shadow-sm flex flex-col h-full">
             <Image
