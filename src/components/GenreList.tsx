@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
     genre: {
@@ -11,8 +11,13 @@ interface Props {
 
 export default function GenreList({ genre }: Props) {
     const router = useRouter();
+    const searchParams= useSearchParams(); 
     const handleClick = (id: number) => {
-        router.push(`/?genres=${id}`);
+        const params= new URLSearchParams(searchParams.toString()); 
+        params.set('genreId', String(id))
+        console.log(params.toString()); 
+        //console.log(searchParams.toString()); 
+        router.push(`/?${params.toString()}`);
     }
     return (
         <li onClick={() => handleClick(genre.id)} key={genre.id}><a>{genre.name}</a></li>

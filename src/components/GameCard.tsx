@@ -4,6 +4,7 @@ import PlatformIconList from "./PlatformIconList";
 
 export default function GameCard({ game }) {
     const { id, name, background_image, metacritic, parent_platforms } = game;
+    console.log(game.genres);
     return (
         <div className="card bg-base-100 shadow-sm flex flex-col h-full">
             <Image
@@ -18,9 +19,19 @@ export default function GameCard({ game }) {
                 <h2 className="card-title">
                     {name}
                 </h2>
-                <div className="card-actions justify-between">
-                    <div><PlatformIconList platforms={parent_platforms} /></div>
-                    <div className={`badge badge-soft badge-${metacritic >= 90 ? 'primary' : 'secondary'}`}>{metacritic}</div>
+                <div className="card-actions justify-between flex flex-col">
+                    <div className="flex justify-between w-full">
+                        <div className=""><PlatformIconList platforms={parent_platforms} /></div>
+                        {
+                            metacritic ? <div className={`badge badge-soft badge-${metacritic >= 90 ? 'primary' : 'secondary'}`}>{metacritic}</div>
+                                : <div className="badge badge-soft">N/A</div>
+                        }
+                    </div>
+                    <div className="flex gap-2">
+                        {
+                            game.genres.map(genre => <p className="bg-gray-700 px-2 py-1 rounded-xl" key={genre.id}>{genre.name}</p>)
+                        }
+                    </div>
                 </div>
             </div>
         </div>
