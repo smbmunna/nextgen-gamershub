@@ -1,13 +1,16 @@
 'use client'
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function PlatformList({platform}) {
 
     const router = useRouter();
+    const searchParams= useSearchParams(); 
 
     const handleClick = (id: string) => {
-        router.push(`/?parent_platform=${id}`)
+        const params= new URLSearchParams(searchParams.toString()); 
+        params.set('parent_platform', String(id)); 
+        router.push(`/?${params}`); 
     }
 
     return (
