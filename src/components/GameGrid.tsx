@@ -2,6 +2,9 @@ import GameCard from "./GameCard";
 import Platform from "./Platform";
 import { getAllData } from "../services/getAllData";
 import ClearFilter from "./ClearFilter";
+import FilteredBy from "./FilteredBy";
+
+
 
 interface Game {
     id: number;
@@ -24,6 +27,7 @@ export default async function GameGrid({ genreId, platformId }) {
         <div className="ml-4">
             <div className="flex gap-4 items-center">
                 <Platform />
+                <FilteredBy/>
                 <ClearFilter />
             </div>
             <h2 className="mb-8 font-semibold text-2xl">Games</h2>
