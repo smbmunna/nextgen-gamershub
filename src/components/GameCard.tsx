@@ -13,7 +13,7 @@ interface Genre {
     name: string;
 }
 
-interface Game {
+export interface Game {
   id: string;
   name: string;
   background_image: string;

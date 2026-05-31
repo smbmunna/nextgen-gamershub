@@ -1,21 +1,19 @@
-import GameCard from "./GameCard";
+import GameCard, { Game } from "./GameCard";
 import Platform from "./Platform";
 import { getAllData } from "../services/getAllData";
 import ClearFilter from "./ClearFilter";
 import FilteredBy from "./FilteredBy";
 
 
-
-interface Game {
-    id: number;
-    name: string;
-    background_image: string;
-    metacritic: number;
+interface GameGridProps {
+    genreId: string; 
+    platformId: string; 
 }
 
 
 
-export default async function GameGrid({ genreId, platformId }) {
+
+export default async function GameGrid({ genreId, platformId }: GameGridProps) {
     const params = new URLSearchParams();
     if (genreId) params.append('genres', genreId);
     if (platformId) params.append('parent_platforms', platformId);
@@ -33,7 +31,7 @@ export default async function GameGrid({ genreId, platformId }) {
             <h2 className="mb-8 font-semibold text-2xl">Games</h2>
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {
-                    games.results.map(game => <GameCard key={game.id} game={game} />)
+                    games.results.map((game: Game) => <GameCard key={game.id} game={game} />)
                 }
             </div>
         </div>
