@@ -1,7 +1,7 @@
 import Image from "next/image";
 import PlatformIconList from "./PlatformIconList";
 
-interface Platform {
+export interface Platform {
   id: number;
   name: string;
   slug: string;

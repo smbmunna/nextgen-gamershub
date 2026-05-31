@@ -3,10 +3,16 @@ import { FaXbox } from "react-icons/fa";
 import { IconType } from "react-icons";
 import { MdPhoneIphone } from "react-icons/md";
 import { BsGlobe, BsNintendoSwitch } from "react-icons/bs";
+import { Platform } from "./Platform";
 
 
 
-export default function PlatformIconList({ platforms }) {
+interface PlatformIconListProps{
+    platforms: Platform[]
+}
+
+
+export default function PlatformIconList({ platforms }: PlatformIconListProps) {
     const iconMap: Record<string, IconType> = {
         pc: FaWindows,
         playstation: FaPlaystation,
@@ -21,10 +27,10 @@ export default function PlatformIconList({ platforms }) {
     return (
         <div className="flex gap-4">
             {
-                platforms.map(pl => {
-                    const Icon = iconMap[pl.platform.slug];
+                platforms.map((pl) => {
+                    const Icon = iconMap[pl.slug];
                     if (!Icon) return null;
-                    return <Icon key={pl.platform.id} />
+                    return <Icon key={pl.id} />
                 })
             }
         </div>

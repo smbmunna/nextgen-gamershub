@@ -1,8 +1,14 @@
 'use client'
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { Platform } from "./Platform";
 
-export default function PlatformList({platform}) {
+interface PlatformListProps{
+    platform: Platform
+}
+
+
+export default function PlatformList({platform}: PlatformListProps) {
 
     const router = useRouter();
     const searchParams= useSearchParams(); 
@@ -14,6 +20,6 @@ export default function PlatformList({platform}) {
     }
 
     return (
-        <li onClick={() => handleClick(platform.id)} key={platform.id}><a>{platform.name}</a></li>
+        <li onClick={() => handleClick(String(platform.id))} key={platform.id}><a>{platform.name}</a></li>
     )
 }
