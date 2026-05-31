@@ -4,7 +4,12 @@ import GameGrid from "./GameGrid";
 import useGenres from "../hooks/useGenres"
 import GameGridSkeleton from "./GameGridSkeleton";
 
-export default async function Sidebar({ genreId, parentPlatform }) {
+interface SidebarProps{
+    genreId: string; 
+    parentPlatform: string; 
+}
+
+export default async function Sidebar({ genreId, parentPlatform }: SidebarProps) {
     const { genres } =  useGenres();
 
     return (
