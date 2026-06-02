@@ -1,20 +1,24 @@
-'use client'
+"use client";
+
+import { useState } from "react";
+
 export default function SearchBox() {
-    return (
-        <label className="input">
-            <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <g
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2.5"
-                    fill="none"
-                    stroke="currentColor"
-                >
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.3-4.3"></path>
-                </g>
-            </svg>
-            <input type="search" className="grow" placeholder="Search Games" />
-        </label>
-    )
+  const [query, setQuery] = useState("");
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log(e.target.searchbox.value);
+  };
+  return (
+    <form onSubmit={handleSearch} className="w-full max-w-md flex gap-4 items-center">
+      <input
+        type="text"
+        name="searchbox"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search games..."
+        className="w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:border-green-400"
+      />
+      <button className="btn btn-soft btn-success">Search</button>
+    </form>
+  );
 }
