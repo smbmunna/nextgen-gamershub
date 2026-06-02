@@ -5,13 +5,15 @@ import { getGenreName } from "../services/getGenreName";
 interface FilteredByProps {
   genreName: string;
   platformName: string;
+  searchText?:string; 
 }
 
 export default function FilteredBy({
   genreName,
   platformName,
+  searchText
 }: FilteredByProps) {
-  if (!genreName && !platformName) return null;
+  if (!genreName && !platformName && !searchText) return null;
 
   // const searchParams = useSearchParams();
   // const paramsArray = Array.from(searchParams.entries());
@@ -38,6 +40,11 @@ export default function FilteredBy({
       {platformName && (
         <div className="bg-green-200 text-black p-1">
           Platform: {platformName}
+        </div>
+      )}
+      {searchText && (
+        <div className="bg-green-200 text-black p-1">
+          Search: {searchText}
         </div>
       )}
     </div>

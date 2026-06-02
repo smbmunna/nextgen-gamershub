@@ -7,7 +7,7 @@ import FilteredBy from "./FilteredBy";
 interface GameGridProps {
   genreId: string;
   platformId: string;
-  searchText: string;
+  searchText?: string;
 }
 
 export default async function GameGrid({ genreId, platformId, searchText }: GameGridProps) {
@@ -15,7 +15,7 @@ export default async function GameGrid({ genreId, platformId, searchText }: Game
   if (genreId) params.append("genres", genreId);
   if (platformId) params.append("parent_platforms", platformId);
   if (searchText) params.append("search", searchText);
-  
+
   const games = await getAllData("games", params.toString());
 
   let activeGenreName = "";
@@ -41,6 +41,7 @@ export default async function GameGrid({ genreId, platformId, searchText }: Game
         <FilteredBy
           genreName={activeGenreName}
           platformName={activePlatformName}
+          searchText={searchText}
         />
         <ClearFilter />
       </div>
