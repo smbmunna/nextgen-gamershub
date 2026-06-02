@@ -1,15 +1,31 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
+
 import { useState } from "react";
 
 export default function SearchBox() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [query, setQuery] = useState("");
+
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log(e.target.searchbox.value);
+    const params = new URLSearchParams(searchParams.toString());
+    if (query.trim()) {
+      params.set("search", query.trim());
+    } else {
+      params.delete("search");
+    }
+    router.push(`/?${params.toString()}`); 
   };
+
   return (
-    <form onSubmit={handleSearch} className="w-full max-w-md flex gap-4 items-center">
+    <form
+      onSubmit={handleSearch}
+      className="w-full max-w-md flex gap-4 items-center"
+    >
       <input
         type="text"
         name="searchbox"
