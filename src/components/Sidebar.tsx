@@ -7,9 +7,10 @@ import GameGridSkeleton from "./GameGridSkeleton";
 interface SidebarProps{
     genreId: string; 
     parentPlatform: string; 
+    searchText: string;
 }
 
-export default async function Sidebar({ genreId, parentPlatform }: SidebarProps) {
+export default async function Sidebar({ genreId, parentPlatform, searchText }: SidebarProps) {
     const { genres } =  useGenres();
 
     return (
@@ -22,7 +23,7 @@ export default async function Sidebar({ genreId, parentPlatform }: SidebarProps)
                 </label>
                 {/* Main content starts     */}
                 <Suspense fallback={<GameGridSkeleton />}>
-                    <GameGrid genreId={genreId} platformId={parentPlatform}/>
+                    <GameGrid genreId={genreId} platformId={parentPlatform} searchText={searchText}/>
                 </Suspense>
                 {/* Main content ends     */}
             </div>
