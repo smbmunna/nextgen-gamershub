@@ -10,7 +10,7 @@ export default function SearchBox() {
 
   const [query, setQuery] = useState("");
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const params = new URLSearchParams(searchParams.toString());
     if (query.trim()) {
@@ -18,7 +18,7 @@ export default function SearchBox() {
     } else {
       params.delete("search");
     }
-    router.push(`/?${params.toString()}`); 
+    router.push(`/?${params.toString()}`);
   };
 
   return (
