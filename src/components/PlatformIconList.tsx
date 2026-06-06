@@ -7,12 +7,12 @@ import { Platform } from "./Platform";
 
 
 
-interface PlatformIconListProps{
+interface PlatformIconListProps {
     platforms: Platform[]
 }
 
 
-export default function PlatformIconList({ platforms }: PlatformIconListProps) {
+export default function PlatformIconList({ platforms = [] }: PlatformIconListProps) {
     const iconMap: Record<string, IconType> = {
         pc: FaWindows,
         playstation: FaPlaystation,

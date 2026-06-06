@@ -4,14 +4,14 @@ import GameGrid from "./GameGrid";
 import useGenres from "../hooks/useGenres"
 import GameGridSkeleton from "./GameGridSkeleton";
 
-interface SidebarProps{
-    genreId: string; 
-    parentPlatform: string; 
+interface SidebarProps {
+    genreId: string;
+    parentPlatform: string;
     searchText: string;
 }
 
 export default async function Sidebar({ genreId, parentPlatform, searchText }: SidebarProps) {
-    const { genres } =  useGenres();
+    const { genres } = useGenres();
 
     return (
         <div className="drawer lg:drawer-open my-8">
@@ -22,8 +22,8 @@ export default async function Sidebar({ genreId, parentPlatform, searchText }: S
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block h-5 w-5 stroke-current"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg>
                 </label>
                 {/* Main content starts     */}
-                <Suspense fallback={<GameGridSkeleton />}>
-                    <GameGrid genreId={genreId} platformId={parentPlatform} searchText={searchText}/>
+                <Suspense fallback={<GameGridSkeleton />} key={`gamegrid-${genreId}-${parentPlatform}-${searchText}`}>
+                    <GameGrid genreId={genreId} platformId={parentPlatform} searchText={searchText} />
                 </Suspense>
                 {/* Main content ends     */}
             </div>
