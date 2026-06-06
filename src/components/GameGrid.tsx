@@ -1,6 +1,6 @@
 import GameCard, { Game } from "./GameCard";
 import Platform from "./Platform";
-import { getAllData } from "../services/getAllData";
+import { customFetch } from "../services/customFetch";
 import ClearFilter from "./ClearFilter";
 import FilteredBy from "./FilteredBy";
 
@@ -16,22 +16,38 @@ export default async function GameGrid({ genreId, platformId, searchText }: Game
   if (platformId) params.append("parent_platforms", platformId);
   if (searchText) params.append("search", searchText);
 
-  const games = await getAllData("games", params.toString());
+  let games: { results: Game[] } = { results: [] };
+  try {
+    const response = await customFetch("games", params.toString());
+    games = await response.json();
+  } catch (error) {
+    console.error("Error fetching games:", error);
+  }
 
   let activeGenreName = "";
   let activePlatformName = "";
 
   if (genreId) {
-    const data = await getAllData(`genres/${genreId}`, "");
-    activeGenreName = data?.name || "";
+    try {
+      const response = await customFetch(`genres/${genreId}`, "");
+      const data = await response.json();
+      activeGenreName = data?.name || "";
+    } catch (error) {
+      console.error("Error fetching genres:", error);
+    }
   }
 
   if (platformId) {
-    const data = await getAllData("platforms/lists/parents", "");
-    const matchedPlatform = data.results?.find(
-      (pl: any) => pl.id == platformId,
-    );
-    activePlatformName = matchedPlatform?.name;
+    try {
+      const response = await customFetch("platforms/lists/parents", "");
+      const data = await response.json();
+      const matchedPlatform = data.results?.find(
+        (pl: any) => pl.id == platformId,
+      );
+      activePlatformName = matchedPlatform?.name;
+    } catch (error) {
+      console.error("Error fetching platforms:", error);
+    }
   }
 
   return (

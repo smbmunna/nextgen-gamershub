@@ -1,6 +1,12 @@
-import { getAllData } from "./getAllData"
+import { customFetch } from "./customFetch"
 
 export async function getGenreName (id: string){
-    const genreName=  await getAllData('genres', '5')
-    return genreName; 
+
+    try {
+        const response = await customFetch(`genres/${id}`, '');
+        const data = await response.json();
+        return data?.name || '';
+    } catch (error) {
+        console.error("Error fetching genre name:", error);
+    }
 }
