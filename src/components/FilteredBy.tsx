@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { getGenreName } from "../services/getGenreName";
+
 
 interface FilteredByProps {
   genreName: string;

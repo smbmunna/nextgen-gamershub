@@ -1,7 +1,7 @@
 
 
 import { IoIosArrowDropdown } from "react-icons/io";
-import { getAllData } from "../services/getAllData";
+import { customFetch } from "../services/customFetch";
 import PlatformList from "./PlatformList";
 
 export interface Platform{
@@ -12,8 +12,14 @@ export interface Platform{
 
 
 export default async function Platform() {
-
-    const platforms = await getAllData('platforms/lists/parents', '');
+    let platforms: { results: Platform[] } = { results: [] };
+    try {
+        const response = await customFetch('platforms/lists/parents', '');
+        platforms = await response.json();
+    } catch (error) {
+        console.error("Error fetching platforms:", error);
+    }
+    
     return (
         <div className="dropdown dropdown-bottom">
             <div tabIndex={0} role="button" className="btn m-1">Platform <IoIosArrowDropdown fontSize={20} /></div>
