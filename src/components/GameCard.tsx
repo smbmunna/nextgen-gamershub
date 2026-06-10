@@ -8,7 +8,7 @@ export interface Platform {
 }
 
 
-interface Genre {
+export interface Genre {
     id: number;
     name: string;
 }
@@ -31,7 +31,8 @@ export default function GameCard({ game }: Props) {
   return (
     <div className="card bg-base-100 shadow-sm flex flex-col h-full">
       <Image
-        src={background_image}
+        //src={background_image}
+        src={background_image || '/images/placeholder.jpg'}
         width={250}
         height={150}
         alt="game"

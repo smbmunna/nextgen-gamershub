@@ -1,12 +1,10 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { Genre } from "./GameCard";
 
 interface Props {
-  genre: {
-    id: number;
-    name: string;
-  };
+  genre: Genre
 }
 
 export default function GenreList({ genre }: Props) {

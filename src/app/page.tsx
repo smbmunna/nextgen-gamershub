@@ -1,10 +1,15 @@
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
-
-
-export default async function Home({ searchParams }: { searchParams: Promise<{ genres: string,parent_platform: string, search: string  }> }) {
-
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    genres: string;
+    parent_platform: string;
+    search: string;
+  }>;
+}) {
   const { genres, parent_platform, search } = await searchParams;
   return (
     <div>
