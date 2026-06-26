@@ -11,7 +11,9 @@ interface PlatformListProps{
 export default function PlatformList({platform}: PlatformListProps) {
 
     const router = useRouter();
-    const searchParams= useSearchParams(); 
+    const searchParams= useSearchParams();     
+
+    const isSelected= searchParams.get('parent_platform') === String(platform.id);     
 
     const handleClick = (id: string) => {
         const params= new URLSearchParams(searchParams.toString()); 
@@ -20,6 +22,6 @@ export default function PlatformList({platform}: PlatformListProps) {
     }
 
     return (
-        <li onClick={() => handleClick(String(platform.id))} key={platform.id}><a>{platform.name}</a></li>
+        <li onClick={() => handleClick(String(platform.id))} key={platform.id}><a className={isSelected ? 'badge-soft badge-accent font-semibold text-md' : ''}>{platform.name}</a></li>
     )
 }
