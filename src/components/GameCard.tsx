@@ -29,18 +29,18 @@ interface Props {
 export default function GameCard({ game }: Props) {
   const { id, name, background_image, metacritic, parent_platforms } = game;
   return (
-    <div className="card bg-base-100 shadow-sm flex flex-col h-full">
+    <div className="card shadow-sm flex flex-col h-full bg-gray-200">
       <Image
         //src={background_image}
         src={background_image || '/images/placeholder.jpg'}
-        width={250}
+        width={200}
         height={150}
         alt="game"
         placeholder="empty"
-        className="w-full h-auto mx-auto bg-base-300"
+        className="mx-auto bg-base-300 mt-8"
       />
       <div className="card-body flex flex-col justify-end mt-auto">
-        <h2 className="card-title">{name}</h2>
+        <h2 className="card-title text-gray-600">{name}</h2>
         <div className="card-actions justify-between flex flex-col">
           <div className="flex justify-between w-full">
             <div className="">
@@ -58,7 +58,7 @@ export default function GameCard({ game }: Props) {
           </div>
           <div className="flex gap-2">
             {game.genres.map((genre) => (
-              <p className="bg-gray-700 px-2 py-1 rounded-xl" key={genre.id}>
+              <p className="bg-green-300 px-2 py-1 rounded-xl" key={genre.id}>
                 {genre.name}
               </p>
             ))}

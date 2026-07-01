@@ -48,7 +48,7 @@ export default async function GameGrid({ genreId, platformId, searchText }: Game
         <ClearFilter />
       </div>
       <h2 className="mb-8 font-semibold text-2xl">Games</h2>
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {games.map((game: Game) => (
           <GameCard key={game.id} game={game} />
         ))}
