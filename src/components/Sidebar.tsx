@@ -3,6 +3,7 @@ import GenreList from "./GenreList";
 import GameGrid from "./GameGrid";
 import useGenres from "../hooks/useGenres";
 import GameGridSkeleton from "./GameGridSkeleton";
+import Link from "next/link";
 
 interface SidebarProps {
   genreId: string;
@@ -39,7 +40,10 @@ export default function Sidebar({
           </svg>
         </label>
         {/* Main content starts     */}
-        <Suspense fallback={<GameGridSkeleton />} key={`gamegrid-${genreId}-${parentPlatform}-${searchText}`}>
+        <Suspense
+          fallback={<GameGridSkeleton />}
+          key={`gamegrid-${genreId}-${parentPlatform}-${searchText}`}
+        >
           <GameGrid
             genreId={genreId}
             platformId={parentPlatform}
@@ -56,6 +60,12 @@ export default function Sidebar({
           className="drawer-overlay"
         ></label>
         <ul className="menu bg-base-200 min-h-full w-60 p-4">
+          <h2 className=" font-semibold text-xl">Create</h2>
+          <li className="mb-4">
+            <Link href="/newGenre">New Genre</Link>
+            <Link href="/newPlatform">New Platform</Link>
+            <Link href="/newGame">New Game</Link>
+          </li>
           {/* Sidebar content here */}
           <h2 className="mb-4 font-semibold text-xl">Genres</h2>
           {genres.map((genre) => (

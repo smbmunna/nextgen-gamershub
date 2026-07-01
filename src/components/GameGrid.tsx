@@ -14,7 +14,8 @@ export default async function GameGrid({ genreId, platformId, searchText }: Game
   const params = new URLSearchParams();
   if (genreId) params.append("genres", genreId);
   if (platformId) params.append("parent_platforms", platformId);
-  if (searchText) params.append("search", searchText);
+  //if (searchText) params.append("search", searchText);
+  if (searchText) params.append("q", searchText); // change search to 'q' for json-server version json-server@0.17.4
 
   const games = await getAllData("games", params.toString());
 
@@ -28,7 +29,8 @@ export default async function GameGrid({ genreId, platformId, searchText }: Game
 
   if (platformId) {
     const data = await getAllData("platforms/lists/parents", "");
-    const matchedPlatform = data.results?.find(
+    console.log(data); 
+    const matchedPlatform = data.find(
       (pl: any) => pl.id == platformId,
     );
     activePlatformName = matchedPlatform?.name;
@@ -47,7 +49,7 @@ export default async function GameGrid({ genreId, platformId, searchText }: Game
       </div>
       <h2 className="mb-8 font-semibold text-2xl">Games</h2>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {games.results.map((game: Game) => (
+        {games.map((game: Game) => (
           <GameCard key={game.id} game={game} />
         ))}
       </div>

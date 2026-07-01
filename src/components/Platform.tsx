@@ -13,13 +13,14 @@ export interface Platform{
 
 export default async function Platform() {
 
-    const platforms = await getAllData('platforms/lists/parents', '');
+    //const platforms = await getAllData('platforms/lists/parents', '');
+    const platforms = await getAllData('platforms', '');
     return (
         <div className="dropdown dropdown-bottom">
             <div tabIndex={0} role="button" className="btn m-1">Platform <IoIosArrowDropdown fontSize={20} /></div>
             <ul tabIndex={-1} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52  shadow-sm">
                 {
-                    platforms.results.map((pl: Platform) => <PlatformList platform={pl} key={pl.id} />)
+                    platforms.map((pl: Platform) => <PlatformList platform={pl} key={pl.id} />)
 
                 }
             </ul>

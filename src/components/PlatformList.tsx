@@ -13,7 +13,7 @@ export default function PlatformList({platform}: PlatformListProps) {
     const router = useRouter();
     const searchParams= useSearchParams();     
 
-    const isSelected= searchParams.get('parent_platform') === String(platform.id);     
+    const isSelected= searchParams.get('platforms') === String(platform.id);     
 
     const handleClick = (id: string) => {
         const params= new URLSearchParams(searchParams.toString()); 

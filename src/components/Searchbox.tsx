@@ -14,7 +14,7 @@ export default function SearchBox() {
     e.preventDefault();
     const params = new URLSearchParams(searchParams.toString());
     if (query.trim()) {
-      params.set("search", query.trim());
+      params.set("q", query.trim());
     } else {
       params.delete("search");
     }
