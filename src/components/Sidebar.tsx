@@ -63,8 +63,8 @@ export default function Sidebar({
           <h2 className=" font-semibold text-xl">Create</h2>
           <li className="mb-4">
             <Link href="/genre/create">New Genre</Link>
-            <Link href="/newPlatform">New Platform</Link>
-            <Link href="/newGame">New Game</Link>
+            <Link href="/platform/create">New Platform</Link>
+            <Link href="/game/create">New Game</Link>
           </li>
           {/* Sidebar content here */}
           <h2 className="mb-4 font-semibold text-xl">Genres</h2>
