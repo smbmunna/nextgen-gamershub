@@ -2,6 +2,7 @@
 
 import { getData } from "@/src/services/getData";
 import { useEffect, useState } from "react";
+import { createGame } from "./action";
 interface data {
   id: string;
   name: string;
@@ -9,7 +10,7 @@ interface data {
 export default function NewGame() {
   const [genres, setGenres] = useState<data[]>([]);
   const [platforms, setPlatforms] = useState<data[]>([]);
-  //Fetching genre list
+  //Fetching genres and platforms
   useEffect(() => {
     const fetchGenres = async () => {
       try {
@@ -25,12 +26,18 @@ export default function NewGame() {
     };
     fetchGenres();
   }, []);
+  //handle form submission
+  const handleSubmit = (
+    e: React.SyntheticEvent<HTMLFormElement, SubmitEvent>,
+  ) => {
+    e.preventDefault();
+  };
 
   return (
     <div className="w-1/2 mx-auto mt-20">
       <h2 className="text-center text-2xl font-medium ">Create new Game</h2>
 
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" action={createGame}>
         <input
           className="input mt-8"
           type="text"
