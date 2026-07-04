@@ -27,6 +27,7 @@ export default function PlatformIconList({ platforms }: PlatformIconListProps) {
     return (
         <div className="flex gap-4">
             {
+                !platforms?<p></p>: 
                 platforms.map((pl) => {
                     const Icon = iconMap[pl.slug];
                     if (!Icon) return null;

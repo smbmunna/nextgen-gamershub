@@ -57,7 +57,8 @@ export default function GameCard({ game }: Props) {
             )}
           </div>
           <div className="flex gap-2">
-            {game.genres.map((genre) => (
+            {!game.genres?<p></p>: 
+            game.genres.map((genre) => (
               <p className="bg-green-300 px-2 py-1 rounded-xl" key={genre.id}>
                 {genre.name}
               </p>

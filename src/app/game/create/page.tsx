@@ -1,15 +1,20 @@
 "use client";
 
 import { getData } from "@/src/services/getData";
-import { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { createGame } from "./action";
+import Link from "next/link";
+
 interface data {
   id: string;
   name: string;
 }
+
 export default function NewGame() {
   const [genres, setGenres] = useState<data[]>([]);
   const [platforms, setPlatforms] = useState<data[]>([]);
+  const [state, formAction, isPending] = useActionState(createGame, null);
+
   //Fetching genres and platforms
   useEffect(() => {
     const fetchGenres = async () => {
@@ -26,24 +31,22 @@ export default function NewGame() {
     };
     fetchGenres();
   }, []);
-  //handle form submission
-  const handleSubmit = (
-    e: React.SyntheticEvent<HTMLFormElement, SubmitEvent>,
-  ) => {
-    e.preventDefault();
-  };
 
   return (
     <div className="w-1/2 mx-auto mt-20">
       <h2 className="text-center text-2xl font-medium ">Create new Game</h2>
 
-      <form className="flex flex-col gap-4" action={createGame}>
+      <form className="flex flex-col gap-4" action={formAction}>
         <input
           className="input mt-8"
           type="text"
           name="name"
           placeholder="Game Name"
         />
+        {state?.errors?.name && (
+          <p className="text-red-500 text-sm mt-1">{state.errors.name[0]}</p>
+        )}
+
         <select
           defaultValue="Select a Genre"
           name="genre"
@@ -56,6 +59,9 @@ export default function NewGame() {
             </option>
           ))}
         </select>
+        {state?.errors?.genre && (
+          <p className="text-red-500 text-sm mt-1">{state.errors.genre[0]}</p>
+        )}
 
         <select
           defaultValue="Select a Platform"
@@ -69,8 +75,24 @@ export default function NewGame() {
             </option>
           ))}
         </select>
+        {state?.errors?.platform && (
+          <p className="text-red-500 text-sm mt-1">
+            {state.errors.platform[0]}
+          </p>
+        )}
 
-        <button className="btn btn-success w-20">Submit</button>
+        {state?.success && (
+          <p className="text-green-400 text-sm mt-1">
+            New Game created successfully!
+          </p>
+        )}
+
+        <button className="btn btn-success w-20">
+          {isPending ? "Saving..." : "Submit"}
+        </button>
+        <Link className="text-gray-500 mx-auto mt-10 underline" href="/">
+          Back to Home
+        </Link>
       </form>
     </div>
   );
