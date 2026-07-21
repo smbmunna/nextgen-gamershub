@@ -16,21 +16,29 @@ export default function NewGame() {
   const [state, formAction, isPending] = useActionState(createGame, null);
 
   //Fetching genres and platforms
-  useEffect(() => {
-    const fetchGenres = async () => {
-      try {
-        const [genresData, platformsData] = await Promise.all([
-          getData("genres"),
-          getData("platforms"),
-        ]);
-        setGenres(genresData);
-        setPlatforms(platformsData);
-      } catch (err) {
-        throw new Error("Error fetching Genres");
-      }
-    };
-    fetchGenres();
-  }, []);
+  // useEffect(() => {
+  //   const fetchGenres = async () => {
+  //     try {
+  //       const [genresData, platformsData] = await Promise.all([
+  //         getData("genres"),
+  //         getData("platforms"),
+  //       ]);
+  //       setGenres(genresData);
+  //       setPlatforms(platformsData);
+  //     } catch (err) {
+  //       throw new Error("Error fetching Genres");
+  //     }
+  //   };
+  //   fetchGenres();
+  // }, []);
+
+  const fetchData = async () => {
+   
+  };
+
+  fetchData();
+
+  console.log('Rendering create Game page'); 
 
   return (
     <div className="w-1/2 mx-auto mt-20">
