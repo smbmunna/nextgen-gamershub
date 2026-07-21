@@ -16,5 +16,5 @@ export default async function NewGamePage() {
   } catch (err) {
     throw new Error("Error fetching Genres");
   }
-  return <CreateGameContainer genre={genres} platform={platforms} />;
+  return <CreateGameContainer genres={genres} platforms={platforms} />;
 }
