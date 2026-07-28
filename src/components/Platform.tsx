@@ -7,14 +7,15 @@ import { getData } from "../services/getData";
 export interface Platform{
     id: number; 
     name: string; 
-    slug: string
+    image_url: string; 
+    createdAt: string; 
 }
 
 
 export default async function Platform() {
 
     //const platforms = await ('platforms/lists/parents', '');
-    const platforms = await getData('platforms');
+    const {platforms} = await getData('platforms');
     return (
         <div className="dropdown dropdown-bottom">
             <div tabIndex={0} role="button" className="btn m-1">Platform <IoIosArrowDropdown fontSize={20} /></div>

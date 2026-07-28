@@ -164,7 +164,7 @@ const CreateGenreContainer = (props: PropsInterface) => {
                   </div>
                 </td>
                 <th>
-                  <button className="btn btn-ghost btn-xs">Delete</button>
+                  <button className="btn btn-error btn-xs">Delete</button>
                 </th>
               </tr>
             ))}
