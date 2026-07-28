@@ -34,7 +34,7 @@ export default function CreatePlatformContainer() {
 
     //Post request
     try {
-      const response = await fetch("http://localhost:3000/platforms", {
+      const response = await fetch("http://localhost:5000/api/platforms", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -71,6 +71,12 @@ export default function CreatePlatformContainer() {
         {successMsg && (
           <p className="text-green-400 text-xs text-center">{successMsg}</p>
         )}
+        <input
+          type="text"
+          name="image_url"
+          placeholder="Platform Image"
+          className="input mx-auto "
+        />
         <button disabled={isLoading} className="btn btn-success w-20 mx-auto ">
           {isLoading ? "Saving..." : "submit"}
         </button>
