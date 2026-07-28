@@ -1,8 +1,8 @@
 
 
 import { IoIosArrowDropdown } from "react-icons/io";
-import { getAllData } from "../services/getAllData";
 import PlatformList from "./PlatformList";
+import { getData } from "../services/getData";
 
 export interface Platform{
     id: number; 
@@ -13,8 +13,8 @@ export interface Platform{
 
 export default async function Platform() {
 
-    //const platforms = await getAllData('platforms/lists/parents', '');
-    const platforms = await getAllData('platforms', '');
+    //const platforms = await ('platforms/lists/parents', '');
+    const platforms = await getData('platforms');
     return (
         <div className="dropdown dropdown-bottom">
             <div tabIndex={0} role="button" className="btn m-1">Platform <IoIosArrowDropdown fontSize={20} /></div>

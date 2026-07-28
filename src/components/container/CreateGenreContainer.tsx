@@ -7,6 +7,7 @@ import Link from "next/link";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Genre name cannot be empty!"),
+  image_url: z.string().optional()
 });
 
 interface PropsInterface {
@@ -28,22 +29,24 @@ const CreateGenreContainer = (props: PropsInterface) => {
     setSuccessMsg("");
     const formData = new FormData(e.currentTarget);
     const genreData = Object.fromEntries(formData.entries());
+    
     const result = schema.safeParse(genreData);
     if (!result.success) {
       setErrorMsg(result.error.issues[0].message);
+      
       setLoading(false);
       return;
     }
     try {
-      const response = await fetch("http://localhost:3000/genres", {
+      const response = await fetch("http://localhost:5000/api/genres", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify(genreData),
       });
-      const result = await response.json();
-      console.log(response.status); 
+      //const result = await response.json();
+      
       if (response.status === STATUS_CODE.HTTP_201_CREATED) {
         setSuccessMsg("Genre created successfully!");
         form.reset();
@@ -52,7 +55,7 @@ const CreateGenreContainer = (props: PropsInterface) => {
       }
     } catch (e) {
       const error = e as Error;
-      console.log(error.message);
+      
     } finally {
       setLoading(false);
     }
@@ -75,6 +78,14 @@ const CreateGenreContainer = (props: PropsInterface) => {
           {successMsg && (
             <p className="text-green-400 text-xs text-center">{successMsg}</p>
           )}
+
+          <input
+            type="text"
+            placeholder="Image URL"
+            name="image_url"
+            className="input mx-auto  border-gray-400"
+          />
+          
           <button
             disabled={isLoading}
             className="btn btn-success w-20 mx-auto "

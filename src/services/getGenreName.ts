@@ -1,6 +1,6 @@
-import { getAllData } from "./getAllData"
+import { getData } from "./getData";
 
 export async function getGenreName (id: string){
-    const genreName=  await getAllData('genres', '5')
+    const genreName=  await getData('genres')
     return genreName; 
 }
