@@ -1,8 +1,10 @@
 "use client";
 
 import { getData } from "@/src/services/getData";
+import { STATUS_CODE } from "@/src/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import z from "zod";
 
 const schema = z.object({
@@ -67,12 +69,13 @@ export default function CreatePlatformContainer() {
         },
         body: JSON.stringify(platformData),
       });
-      if (!response.ok) {
-        throw new Error("Error creating new platform");
-      } else {
+      if (response.status === STATUS_CODE.HTTP_201_CREATED) {
         setSuccessMsg("Successfully created new Platform");
+        toast.success("Successfully created new Platform");
         form.reset();
         fetchPlatforms();
+      } else {
+        throw new Error("Error creating new platform");
       }
     } catch (e) {
       const error = e as Error;
