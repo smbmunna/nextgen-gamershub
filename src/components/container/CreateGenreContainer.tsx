@@ -1,14 +1,15 @@
 "use client";
 
-import z from "zod";
+import z, { success } from "zod";
 import { useEffect, useState } from "react";
 import { STATUS_CODE } from "@/src/utils";
 import Link from "next/link";
 import { getData } from "@/src/services/getData";
+import { toast } from "react-toastify";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Genre name cannot be empty!"),
-  image_url: z.string().optional(),
+  imageUrl: z.string().optional(),
 });
 
 interface PropsInterface {
@@ -18,7 +19,7 @@ interface PropsInterface {
 interface Genre {
   id: number;
   name: string;
-  image_url: string;
+  imageUrl: string;
   createdAt: string;
 }
 
@@ -42,9 +43,9 @@ const CreateGenreContainer = (props: PropsInterface) => {
     }
   };
 
-  useEffect(()=>{
-    fetchGenres(); 
-  },[])
+  useEffect(() => {
+    fetchGenres();
+  }, []);
 
   const handleSubmit = async (
     e: React.SyntheticEvent<HTMLFormElement, SubmitEvent>,
@@ -76,6 +77,7 @@ const CreateGenreContainer = (props: PropsInterface) => {
 
       if (response.status === STATUS_CODE.HTTP_201_CREATED) {
         setSuccessMsg("Genre created successfully!");
+        toast.success("Genre created successfully!");
         form.reset();
         fetchGenres();
       } else {
@@ -109,7 +111,7 @@ const CreateGenreContainer = (props: PropsInterface) => {
           <input
             type="text"
             placeholder="Image URL"
-            name="image_url"
+            name="imageUrl"
             className="input mx-auto  border-gray-400"
           />
 
@@ -135,10 +137,10 @@ const CreateGenreContainer = (props: PropsInterface) => {
             </tr>
           </thead>
           <tbody>
-            {genreLoading && genres.length===0 && (
+            {genreLoading && genres.length === 0 && (
               <tr>
                 <td colSpan={2} className="text-center py-6">
-                  No genres yet! Create one. 
+                  No genres yet! Create one.
                 </td>
               </tr>
             )}
@@ -150,8 +152,8 @@ const CreateGenreContainer = (props: PropsInterface) => {
                       <div className="mask mask-squircle h-12 w-12">
                         <img
                           src={
-                            genre.image_url
-                              ? genre.image_url
+                            genre.imageUrl
+                              ? genre.imageUrl
                               : "https://placehold.co/400?text=No+Image"
                           }
                           alt="Genre Image"

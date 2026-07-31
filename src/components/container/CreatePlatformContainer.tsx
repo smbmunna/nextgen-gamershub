@@ -26,7 +26,7 @@ export default function CreatePlatformContainer() {
   const fetchPlatforms = async () => {
     setPlatformLoading(true);
     try {
-      const { platforms } = await getData("platforms");
+      const platforms = await getData("platforms");
       setPlatforms(platforms);
     } catch (err) {
       console.log(err);
@@ -101,7 +101,7 @@ export default function CreatePlatformContainer() {
           {successMsg && (
             <p className="text-green-400 text-xs text-center">{successMsg}</p>
           )}
-          
+
           <button
             disabled={isLoading}
             className="btn btn-success w-20 mx-auto "
@@ -136,7 +136,6 @@ export default function CreatePlatformContainer() {
               <tr key={pl.id}>
                 <td>
                   <div className="flex items-center gap-3">
-                    
                     <div>
                       <div className="font-bold">{pl.name}</div>
                     </div>
