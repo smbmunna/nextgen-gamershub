@@ -1,18 +1,25 @@
 "use server";
+import { STATUS_CODE } from "@/src/utils";
+import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
 import z from "zod";
 
 const schema = z.object({
   title: z.string().min(1, "Game name cant be empty"),
-  imageUrl: z.string().min(1,"URL cannot be empty!"), 
-  description: z.string().min(1,"Enter a short description"), 
-  genreIds: z.array(z.coerce.number()).min(1, "Please select atleast one Genre"),
-  platformIds: z.array(z.coerce.number()).min(1, "Please select atleast one Platform"),
+  imageUrl: z.string().min(1, "URL cannot be empty!"),
+  description: z.string().min(1, "Enter a short description"),
+  genreIds: z
+    .array(z.coerce.number())
+    .min(1, "Please select atleast one Genre"),
+  platformIds: z
+    .array(z.coerce.number())
+    .min(1, "Please select atleast one Platform"),
 });
 
 export async function createGame(prevState: any, formData: FormData) {
   const title = formData.get("title");
-  const description= formData.get("description"); 
-  const imageUrl= formData.get("imageUrl"); 
+  const description = formData.get("description");
+  const imageUrl = formData.get("imageUrl");
   const genreIds = formData.getAll("genreIds").map(Number);
   const platformIds = formData.getAll("platformIds").map(Number);
 
@@ -23,7 +30,6 @@ export async function createGame(prevState: any, formData: FormData) {
     genreIds,
     platformIds,
   };
-
 
   const validation = schema.safeParse(gamePayload);
   if (!validation.success) {
@@ -41,7 +47,9 @@ export async function createGame(prevState: any, formData: FormData) {
       },
       body: JSON.stringify(gamePayload),
     });
-    if (!response.ok) {
+    if (response.status === STATUS_CODE.HTTP_201_CREATED) {
+      return {success: true, message: "Game created successfully!"}
+    } else {
       throw new Error("Failed to save the game");
     }
 

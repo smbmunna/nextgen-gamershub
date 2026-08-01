@@ -73,7 +73,7 @@ export default function CreatePlatformContainer() {
         setSuccessMsg("Successfully created new Platform");
         toast.success("Successfully created new Platform");
         form.reset();
-        fetchPlatforms();
+      fetchPlatforms();
       } else {
         throw new Error("Error creating new platform");
       }

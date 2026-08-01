@@ -2,7 +2,9 @@
 
 import { createGame } from "@/src/app/game/create/action";
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 // interface data {
 //   id: string;
@@ -28,11 +30,14 @@ export default function CreateGameContainer({
   genres,
   platforms,
 }: CreateGameContainerProps) {
-  //   const [genres, setGenres] = useState<data[]>([]);
-  //   const [platforms, setPlatforms] = useState<data[]>([]);
   const [state, formAction, isPending] = useActionState(createGame, null);
-
-  console.log("Rendering create Game page");
+  const router = useRouter();
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state.message);
+      router.push("/");
+    }
+  }, [state, router]);
 
   return (
     <div className="w-1/2 mx-auto mt-20">
