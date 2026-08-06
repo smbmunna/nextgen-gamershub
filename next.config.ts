@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'media.rawg.io',
+        //hostname: 'media.rawg.io',
+        hostname: 'image.api.playstation.com',
         port: '',
         pathname: '/**',
       }

@@ -15,11 +15,10 @@ export interface Genre {
 
 export interface Game {
   id: string;
-  name: string;
-  background_image: string;
-  metacritic: number | null;
-  parent_platforms: Platform[];
-  genres: Genre[];
+  title: string;
+  imageUrl: string;
+  platforms: string[]; 
+  genres: number []
 }
 
 interface Props {
@@ -27,12 +26,12 @@ interface Props {
 }
 
 export default function GameCard({ game }: Props) {
-  const { id, name, background_image, metacritic, parent_platforms } = game;
+  const { title, imageUrl, platforms, genres } = game;
   return (
-    <div className="card shadow-sm flex flex-col h-full bg-gray-200">
+    <div className="card shadow-sm flex flex-col h-full border border-gray-600">
       <Image
         //src={background_image}
-        src={background_image || '/images/placeholder.jpg'}
+        src={imageUrl || '/images/placeholder.jpg'}
         width={200}
         height={150}
         alt="game"
@@ -40,13 +39,13 @@ export default function GameCard({ game }: Props) {
         className="mx-auto bg-base-300 mt-8"
       />
       <div className="card-body flex flex-col justify-end mt-auto">
-        <h2 className="card-title text-gray-600">{name}</h2>
+        <h2 className="card-title ">{title}</h2>
         <div className="card-actions justify-between flex flex-col">
           <div className="flex justify-between w-full">
             <div className="">
-              <PlatformIconList platforms={parent_platforms} />
+              {/* <PlatformIconList platforms={platforms} /> */}
             </div>
-            {metacritic ? (
+            {/* {metacritic ? (
               <div
                 className={`badge badge-soft badge-${metacritic >= 90 ? "primary" : "secondary"}`}
               >
@@ -54,16 +53,16 @@ export default function GameCard({ game }: Props) {
               </div>
             ) : (
               <div className="badge badge-soft">N/A</div>
-            )}
+            )} */}
           </div>
-          <div className="flex gap-2">
-            {!game.genres?<p></p>: 
-            game.genres.map((genre) => (
+          {/* <div className="flex gap-2">
+            {genres?<p></p>: 
+            genres.map((genre) => (
               <p className="bg-green-300 px-2 py-1 rounded-xl" key={genre.id}>
                 {genre.name}
               </p>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
