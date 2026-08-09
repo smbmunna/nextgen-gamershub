@@ -3,13 +3,22 @@
 import { STATUS_CODE } from "@/src/utils";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { FormState } from "../auth/login/page";
 
-export async function loginAction(prevState, formData) {
+export async function loginAction(
+  prevState: FormState,
+  formData: FormData,
+): Promise<FormState> {
   const email = formData.get("email");
   const password = formData.get("password");
 
   if (!email || !password) {
-    return { error: "Email and password are required!" };
+    //return { error: "Email and password are required!" };
+    return {
+      success: false,
+      message: "Email and password not found",
+      error: "Validation error",
+    };
   }
 
   try {
@@ -22,6 +31,16 @@ export async function loginAction(prevState, formData) {
       },
     );
 
+    //Catching error
+    if (res.status !== STATUS_CODE.HTTP_200_OK) {
+      const errorData = await res.json().catch(() => ({}));
+      return {
+        success: false,
+        message: "Authentication Failed!",
+        error: errorData.message || "Invalid email or password!",
+      };
+    }
+
     const data = await res.json();
     //set cookies
     const cookieStore = await cookies();
@@ -33,9 +52,12 @@ export async function loginAction(prevState, formData) {
       maxAge: 7 * 24 * 60 * 60, //7 days validity
     });
   } catch (err) {
-    return { error: err };
+    return {
+      success: false,
+      message: "Auth error",
+      error: "An unexpected login error occurred",
+    };
   }
-
   redirect("/");
 }
 

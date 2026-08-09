@@ -6,8 +6,23 @@ import { IoLockClosedOutline } from "react-icons/io5";
 import { MdMailOutline } from "react-icons/md";
 import { loginAction } from "../../actions/auth";
 
+export interface FormState {
+  success: boolean;
+  message: string;
+  error: string | null;
+}
+
+const initialState: FormState = {
+  success: false,
+  message: "",
+  error: null,
+};
+
 export default function LoginPage() {
-  const [state, formAction, isPending] = useActionState(loginAction, null);
+  const [state, formAction, isPending] = useActionState(
+    loginAction,
+    initialState,
+  );
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
       <div className="w-full max-w-sm">
@@ -78,13 +93,19 @@ export default function LoginPage() {
               />
             </div>
           </div>
+          {!!state?.error && (
+            <p className="text-red-500 text-sm font-medium mt-1">
+              {state.error}
+            </p>
+          )}
 
           {/* button */}
           <button
             type="submit"
+            disabled={isPending}
             className="mt-5 w-full rounded-lg bg-teal-500 py-2.5 text-sm font-medium text-slate-950 hover:bg-teal-600 active:bg-teal-700 transition-colors"
           >
-            Sign in
+            {isPending ? "Loggin In..." : "Login"}
           </button>
         </form>
 
