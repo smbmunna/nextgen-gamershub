@@ -11,7 +11,11 @@ import Link from "next/link";
 import { useTransition } from "react";
 // import SearchBox from "./Searchbox";
 
-export default function Navbar() {
+interface NavbarProps {
+  isAuthenticated: boolean;
+}
+
+export default function Navbar({ isAuthenticated }: NavbarProps) {
   const [isPending, startTransition] = useTransition();
 
   const handleLogout = () => {
@@ -25,16 +29,19 @@ export default function Navbar() {
       <SearchBox />
       <Toggle />
       <div className="flex gap-2">
-        <Link href="/auth/login" className="btn btn-success btn-sm">
-          Login
-        </Link>
-        <button
-          disabled={isPending}
-          onClick={handleLogout}
-          className="btn btn-error btn-sm"
-        >
-          {isPending ? "Logging Out" : "Logout"}
-        </button>
+        {isAuthenticated ? (
+          <button
+            disabled={isPending}
+            onClick={handleLogout}
+            className="btn btn-error btn-sm"
+          >
+            {isPending ? "Logging Out" : "Logout"}
+          </button>
+        ) : (
+          <Link href="/auth/login" className="btn btn-success btn-sm">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );

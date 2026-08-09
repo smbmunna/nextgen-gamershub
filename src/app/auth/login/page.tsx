@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { MdMailOutline } from "react-icons/md";
 import { loginAction } from "../../actions/auth";
