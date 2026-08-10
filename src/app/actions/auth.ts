@@ -16,7 +16,6 @@ export async function loginAction(
     //return { error: "Email and password are required!" };
     return {
       success: false,
-      message: "Email and password not found",
       error: "Validation error",
     };
   }
@@ -36,7 +35,6 @@ export async function loginAction(
       const errorData = await res.json().catch(() => ({}));
       return {
         success: false,
-        message: "Authentication Failed!",
         error: errorData.message || "Invalid email or password!",
       };
     }
@@ -51,7 +49,6 @@ export async function loginAction(
       path: "/", // the cookie is available website-wide.
       maxAge: 7 * 24 * 60 * 60, //7 days validity
     });
-    
   } catch (err) {
     return {
       success: false,
@@ -67,4 +64,64 @@ export async function logoutAction() {
   const cookieStore = await cookies();
   cookieStore.delete("token");
   redirect("/auth/login");
+}
+
+//----------------------------Registration
+export async function regAction(
+  prevState: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  if (!email || !password) {
+    return {
+      success: false,
+      error: "Email and Password both required.",
+    };
+  }
+
+  if (password.toString().length < 6) {
+    return {
+      success: false,
+      error: "Password must be at least 6 characters long.",
+    };
+  }
+
+  //make post request
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/register`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      },
+    );
+
+    const data = await res.json();
+
+    if (res.status !== STATUS_CODE.HTTP_201_CREATED) {
+      return { success: false, error: data.error || "Registration failed. " };
+    }
+
+    //Store token and auto login
+    if (data.token) {
+      const cookieStore = await cookies();
+      cookieStore.set("token", data.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 7 * 24 * 60 * 60,
+      });
+    }
+  } catch (err) {
+    return {
+      success: false,
+      error: "Unable to connect to the server. Please try again.",
+    };
+  }
+
+  redirect("/");
 }

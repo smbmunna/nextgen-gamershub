@@ -8,13 +8,11 @@ import { loginAction } from "../../actions/auth";
 
 export interface FormState {
   success: boolean;
-  message: string;
   error: string | null;
 }
 
 const initialState: FormState = {
   success: false,
-  message: "",
   error: null,
 };
 
