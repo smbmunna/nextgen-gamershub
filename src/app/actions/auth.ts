@@ -3,8 +3,8 @@
 import { STATUS_CODE } from "@/src/utils";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { FormState } from "../auth/register/page";
-import { registerSchema } from "../auth/register/page";
+import { FormState } from "@/src/lib/schemas/auth";
+import { registerSchema } from "@/src/lib/schemas/auth"; 
 import z from "zod";
 
 export async function loginAction(
@@ -77,10 +77,9 @@ export async function regAction(
     password: formData.get("password")?.toString().trim(),
     name: formData.get("name")?.toString().trim(),
   };
-
   const validation = registerSchema.safeParse(rawData);
   if (!validation.success) {
-    const { fieldErrors } = z.flattenError(validation.error); 
+    const { fieldErrors } = z.flattenError(validation.error);
     return {
       success: false,
       error: "zod error",
@@ -88,7 +87,7 @@ export async function regAction(
     };
   }
 
-  const {name, email, password}= validation.data; 
+  const { name, email, password } = validation.data;
 
   //make post request
   try {

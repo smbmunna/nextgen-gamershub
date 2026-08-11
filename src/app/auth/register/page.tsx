@@ -5,33 +5,9 @@ import { useActionState, useEffect } from "react";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { MdMailOutline } from "react-icons/md";
 import { regAction } from "../../actions/auth";
-import { z } from "zod";
+import { InitialState } from "@/src/lib/schemas/auth";
 
 
-export interface FormState {
-  success: boolean;
-  error: string | null;
-  fieldErrors?: {
-    name?: string[]; 
-    email?: string[]; 
-    password?:string[]; 
-    
-  }; 
-}
-
-const InitialState: FormState = {
-  success: false,
-  error: null,
-};
-
-export const registerSchema = z.object({
-  name: z
-    .string()
-    .min(2, "Name must be atleast 2 characters long.")
-    .max(50, "Name cannot exceed 50 characters."),
-  email: z.email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters long."),
-});
 
 export default function RegisterPage() {
   const [state, formAction, isPending] = useActionState(
