@@ -5,10 +5,18 @@ import { useActionState, useEffect } from "react";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { MdMailOutline } from "react-icons/md";
 import { regAction } from "../../actions/auth";
+import { z } from "zod";
+
 
 export interface FormState {
   success: boolean;
   error: string | null;
+  fieldErrors?: {
+    name?: string[]; 
+    email?: string[]; 
+    password?:string[]; 
+    
+  }; 
 }
 
 const InitialState: FormState = {
@@ -16,15 +24,20 @@ const InitialState: FormState = {
   error: null,
 };
 
+export const registerSchema = z.object({
+  name: z
+    .string()
+    .min(2, "Name must be atleast 2 characters long.")
+    .max(50, "Name cannot exceed 50 characters."),
+  email: z.email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters long."),
+});
+
 export default function RegisterPage() {
   const [state, formAction, isPending] = useActionState(
     regAction,
     InitialState,
   );
-
-  // useEffect(()=>{
-  //   console.log(state);
-  // },[state])
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950">
@@ -44,6 +57,26 @@ export default function RegisterPage() {
           action={formAction}
           className="bg-slate-900 border border-slate-500 p-6 rounded-2xl"
         >
+          {/* name */}
+          <div className="mb-4">
+            <label
+              htmlFor="email"
+              className="block text-xs font-medium text-slate-400 mb-1.5"
+            >
+              Name
+            </label>
+            <div className="relative">
+              <MdMailOutline className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+              <input
+                id="name"
+                type="text"
+                name="name"
+                required
+                placeholder="Your full name"
+                className="w-full rounded-lg bg-slate-950 border border-slate-800 pl-10 pr-3 py-2.5 text-sm text-slate-100 placeholder-slate-600 outline-none focus:border-teal-500/60 focus:ring-1 focus:ring-teal-500/60 transition-colors"
+              />
+            </div>
+          </div>
           {/* email */}
           <div className="mb-4">
             <label
@@ -99,9 +132,10 @@ export default function RegisterPage() {
           {/* button */}
           <button
             type="submit"
+            disabled={isPending}
             className="mt-5 w-full rounded-lg bg-teal-500 py-2.5 text-sm font-medium text-slate-950 hover:bg-teal-600 active:bg-teal-700 transition-colors"
           >
-            Sign up
+            {isPending ? "Creating User" : "Sign up"}
           </button>
         </form>
 

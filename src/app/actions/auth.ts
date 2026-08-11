@@ -3,7 +3,9 @@
 import { STATUS_CODE } from "@/src/utils";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { FormState } from "../auth/login/page";
+import { FormState } from "../auth/register/page";
+import { registerSchema } from "../auth/register/page";
+import z from "zod";
 
 export async function loginAction(
   prevState: FormState,
@@ -52,7 +54,6 @@ export async function loginAction(
   } catch (err) {
     return {
       success: false,
-      message: "Auth error",
       error: "An unexpected login error occurred",
     };
   }
@@ -71,22 +72,23 @@ export async function regAction(
   prevState: FormState,
   formData: FormData,
 ): Promise<FormState> {
-  const email = formData.get("email");
-  const password = formData.get("password");
+  const rawData = {
+    email: formData.get("email")?.toString().trim(),
+    password: formData.get("password")?.toString().trim(),
+    name: formData.get("name")?.toString().trim(),
+  };
 
-  if (!email || !password) {
+  const validation = registerSchema.safeParse(rawData);
+  if (!validation.success) {
+    const { fieldErrors } = z.flattenError(validation.error); 
     return {
       success: false,
-      error: "Email and Password both required.",
+      error: "zod error",
+      fieldErrors: fieldErrors,
     };
   }
 
-  if (password.toString().length < 6) {
-    return {
-      success: false,
-      error: "Password must be at least 6 characters long.",
-    };
-  }
+  const {name, email, password}= validation.data; 
 
   //make post request
   try {
@@ -95,7 +97,7 @@ export async function regAction(
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ name, email, password }),
       },
     );
 
