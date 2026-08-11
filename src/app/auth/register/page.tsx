@@ -51,6 +51,9 @@ export default function RegisterPage() {
                 placeholder="Your full name"
                 className="w-full rounded-lg bg-slate-950 border border-slate-800 pl-10 pr-3 py-2.5 text-sm text-slate-100 placeholder-slate-600 outline-none focus:border-teal-500/60 focus:ring-1 focus:ring-teal-500/60 transition-colors"
               />
+              {state.fieldErrors?.name && (
+                <p className="text-red-500 text-xs mt-1">{state.fieldErrors?.name[0]}</p>
+              )}
             </div>
           </div>
           {/* email */}
@@ -71,6 +74,9 @@ export default function RegisterPage() {
                 placeholder="you@example.com"
                 className="w-full rounded-lg bg-slate-950 border border-slate-800 pl-10 pr-3 py-2.5 text-sm text-slate-100 placeholder-slate-600 outline-none focus:border-teal-500/60 focus:ring-1 focus:ring-teal-500/60 transition-colors"
               />
+              {state.fieldErrors?.email && (
+                <p className="text-red-500 text-xs mt-1">{state.fieldErrors?.email[0]}</p>
+              )}
             </div>
           </div>
 
@@ -97,13 +103,11 @@ export default function RegisterPage() {
                 required
                 placeholder="••••••••"
               />
+              {state.fieldErrors?.password && (
+                <p className="text-red-500 text-xs mt-1">{state.fieldErrors?.password[0]}</p>
+              )}
             </div>
           </div>
-          {state?.error && (
-            <p className="text-red-500 text-sm font-medium mt-1">
-              {state?.error}
-            </p>
-          )}
 
           {/* button */}
           <button
