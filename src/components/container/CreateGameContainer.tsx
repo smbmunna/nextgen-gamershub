@@ -1,15 +1,12 @@
 "use client";
 
-import { createGame } from "@/src/app/game/create/action";
+import { createGameAction } from "@/src/app/game/create/action";
+import { initialState } from "@/src/lib/schemas/game";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-// interface data {
-//   id: string;
-//   name: string;
-// }
 interface Genre {
   id: string;
   imageUrl: string;
@@ -30,7 +27,10 @@ export default function CreateGameContainer({
   genres,
   platforms,
 }: CreateGameContainerProps) {
-  const [state, formAction, isPending] = useActionState(createGame, null);
+  const [state, formAction, isPending] = useActionState(
+    createGameAction,
+    initialState,
+  );
   const router = useRouter();
   useEffect(() => {
     if (state?.success) {
@@ -77,20 +77,6 @@ export default function CreateGameContainer({
           </p>
         )}
 
-        {/* <select
-          multiple
-          defaultValue="Select a Genre"
-          name="genreId"
-          className=" select h-32"
-        >
-          <option disabled={true}>Select a Genre</option>
-          {genres.map((genre) => (
-            <option key={genre.id} value={genre.id}>
-              {genre.name}
-            </option>
-          ))}
-        </select>*/}
-
         {/* genre */}
         <div>
           <label className="text-sm">Select Genres</label>
@@ -114,19 +100,6 @@ export default function CreateGameContainer({
             {state.errors.genreIds[0]}
           </p>
         )}
-
-        {/* <select
-          defaultValue="Select a Platform"
-          name="platformId"
-          className=" select"
-        >
-          <option disabled={true}>Select a Platform</option>
-          {platforms.map((pl) => (
-            <option key={pl.id} value={pl.id}>
-              {pl.name}
-            </option>
-          ))}
-        </select> */}
         <div>
           <label className="text-sm">Select Platforms</label>
           <div className="border border-gray-500 rounded-lg flex flex-wrap gap-3 p-2 ">
@@ -154,6 +127,10 @@ export default function CreateGameContainer({
           <p className="text-green-400 text-sm mt-1">
             New Game created successfully!
           </p>
+        )}
+
+        {!state?.success && (
+          <p className="text-red-400 text-sm mt-1">{state?.message}</p>
         )}
 
         <button className="btn btn-success w-20">

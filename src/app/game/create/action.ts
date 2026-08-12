@@ -1,22 +1,11 @@
 "use server";
+import { FormState } from "@/src/lib/schemas/game";
 import { STATUS_CODE } from "@/src/utils";
-import { redirect } from "next/navigation";
-import { toast } from "react-toastify";
+import { gameSchema } from "@/src/lib/schemas/game";
 import z from "zod";
 
-const schema = z.object({
-  title: z.string().min(1, "Game name cant be empty"),
-  imageUrl: z.string().min(1, "URL cannot be empty!"),
-  description: z.string().min(1, "Enter a short description"),
-  genreIds: z
-    .array(z.coerce.number())
-    .min(1, "Please select atleast one Genre"),
-  platformIds: z
-    .array(z.coerce.number())
-    .min(1, "Please select atleast one Platform"),
-});
 
-export async function createGame(prevState: any, formData: FormData) {
+export async function createGameAction(prevState: FormState, formData: FormData): Promise<FormState> {
   const title = formData.get("title");
   const description = formData.get("description");
   const imageUrl = formData.get("imageUrl");
@@ -31,35 +20,44 @@ export async function createGame(prevState: any, formData: FormData) {
     platformIds,
   };
 
-  const validation = schema.safeParse(gamePayload);
+  const validation = gameSchema.safeParse(gamePayload);
   if (!validation.success) {
     const flattened = z.flattenError(validation.error);
     return {
       success: false,
+      message: "Please fix the validation errors.", 
       errors: flattened.fieldErrors,
     };
   }
   try {
-    const response = await fetch("http://localhost:5000/api/games", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/games`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(gamePayload),
     });
-    if (response.status === STATUS_CODE.HTTP_201_CREATED) {
-      return {success: true, message: "Game created successfully!"}
-    } else {
-      throw new Error("Failed to save the game");
-    }
 
+    //console.log(await response.json());
+    const data = await response.json();
+    if (response.status !== STATUS_CODE.HTTP_201_CREATED) {
+      return {
+        success: false,
+        message:
+          data?.message || `Request failed with status code ${response.status}`,
+      };
+    }
     return {
       success: true,
+      message: "Game created successfully.",
       errors: null,
     };
-    //const savedData = await response.json();
-    //console.log("Successfully saved game data", savedData);
   } catch (e) {
-    console.log("Error saving game: ", e);
+    return {
+      success: false,
+      message:
+        "Unable to connect to the backend server. Please check if the server is running.",
+      errors: null,
+    };
   }
 }
