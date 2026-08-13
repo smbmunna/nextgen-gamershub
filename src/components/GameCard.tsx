@@ -30,7 +30,6 @@ export default function GameCard({ game }: Props) {
   return (
     <div className="card shadow-sm flex flex-col h-full border border-gray-600">
       <Image
-        //src={background_image}
         src={imageUrl || '/images/placeholder.jpg'}
         width={200}
         height={150}
