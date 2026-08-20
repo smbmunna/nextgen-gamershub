@@ -159,11 +159,12 @@ npm run dev
 The Next.js app will be running on http://localhost:3000.
 
 ## 🔗 Main API Endpoints
-Method,Endpoint,Description
-GET,/api/games,Fetch all game listings
-POST,/api/games,Create a new game entry
-GET,/api/genres,Fetch all available genres
-GET,/api/platforms,Fetch all available gaming platforms
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/games` | Fetch all game listings |
+| `POST` | `/api/games` | Create a new game entry |
+| `GET` | `/api/genres` | Fetch all available genres |
+| `GET` | `/api/platforms` | Fetch all available gaming platforms |
 
 ## ☁️ Deployment
 * **Backend (Railway):**
