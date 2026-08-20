@@ -123,8 +123,8 @@ NEXT_PUBLIC_BASE_URL="http://localhost:5000"
 ## 📦 Local Installation & Setup
 ### 1. Clone the repository
 ```js
-git clone [https://github.com/your-username/your-repo.git](https://github.com/your-username/your-repo.git)
-cd your-repo
+git clone [https://github.com/smbmunna/nextgen-gamershub.git](https://github.com/smbmunna/nextgen-gamershub.git)
+cd nextgen-gamershub
 ```
 ### 2.Backend Setup
 ```js
