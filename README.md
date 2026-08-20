@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎮 NextGen GamersHub
 
-## Getting Started
+> A modern full-stack web application built with Next.js, Express, Prisma, and PostgreSQL.
 
-First, run the development server:
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-4.x-000000?style=flat-square&logo=express)](https://expressjs.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?style=flat-square&logo=prisma)](https://www.prisma.io/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=flat-square&logo=postgresql)](https://www.postgresql.org/)
+[![Railway](https://img.shields.io/badge/Deployed%20on-Railway-0B0D0E?style=flat-square&logo=railway)](https://railway.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[🚀 Live Demo](https://nextgen-gamershub.vercel.app/) · [🐛 Report Bug](https://github.com/smbmunna/nextgen-gamershub/issues) · [✨ Request Feature](https://github.com/smbmunna/nextgen-gamershub/issues)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🌟 Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **⚡ Server-Driven UI:** Next.js Server Components and Server Actions for fast data fetching and mutations.
+* **🛡️ Type-Safe Database ORM:** Prisma ORM connected to PostgreSQL for robust schema management.
+* **🔒 API Validation & Security:** Express backend featuring Zod schema validation and robust error handling.
+* **🎨 Modern UI Design:** Tailwind CSS components with stateful toast feedback for user actions.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Frontend
+* **Framework:** Next.js (App Router, Server Actions)
+* **Styling:** Tailwind CSS
+* **Language:** TypeScript
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Backend
+* **Runtime:** Node.js & Express.js
+* **Database & ORM:** PostgreSQL & Prisma ORM
+* **Deployment:** Hosted on **Railway**
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📂 Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```text
+└── src/
+    ├── utils/
+    │   └── index.ts
+    ├── services/
+    │   ├── getData.ts
+    │   └── getGenreName.ts
+    ├── hooks/
+    │   └── useGenres.ts
+    ├── data/
+    │   └── genres.ts
+    ├── components/
+    │   ├── ClearFilter.tsx
+    │   ├── FilteredBy.tsx
+    │   ├── GameCard.tsx
+    │   ├── GameCardSkeleton.tsx
+    │   ├── GameGrid.tsx
+    │   ├── GameGridSkeleton.tsx
+    │   ├── GenreList.tsx
+    │   ├── Navbar.tsx
+    │   ├── Platform.tsx
+    │   ├── PlatformIconList.tsx
+    │   ├── PlatformList.tsx
+    │   ├── Searchbox.tsx
+    │   ├── Sidebar.tsx
+    │   ├── ToastProvider.tsx
+    │   ├── Toggle.tsx
+    │   └── container/
+    │       ├── CreateGameContainer.tsx
+    │       ├── CreateGenreContainer.tsx
+    │       ├── CreatePlatformContainer.tsx
+    │       └── index.ts
+    ├── app/
+    │   ├── favicon.ico
+    │   ├── globals.css
+    │   ├── layout.tsx
+    │   ├── page.tsx
+    │   ├── actions/
+    │   │   └── auth.ts
+    │   ├── platform/
+    │   │   └── create/
+    │   │       └── page.tsx
+    │   ├── genre/
+    │   │   └── create/
+    │   │       └── page.tsx
+    │   ├── game/
+    │   │   └── create/
+    │   │       ├── action.ts
+    │   │       ├── page.tsx
+    │   │       └── SamplePage.tsx
+    │   └── auth/
+    │       ├── register/
+    │       │   └── page.tsx
+    │       └── login/
+    │           └── page.tsx
+    └── lib/
+        └── schemas/
+            ├── auth.ts
+            └── game.ts
